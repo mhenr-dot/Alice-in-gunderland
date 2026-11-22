@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.UI;
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerShoot : MonoBehaviour, IAmmoReceiver
 {
     public float bulletSpeed = 15f;
 
@@ -13,6 +14,8 @@ public class PlayerShoot : MonoBehaviour
     public float shotDelay = .5f;
     private bool ishooting = false;
 
+    public Text showAmmo;
+
     void Start()
     {
         playerDirection = GetComponent<PlayerControl>();
@@ -20,6 +23,12 @@ public class PlayerShoot : MonoBehaviour
     void Update()
     {
         InputShot();
+        showAmmo.text = bulletAmount.ToString();
+    }
+
+    public void AddAmmo(int amount)
+    {
+    bulletAmount += amount;
     }
     IEnumerator shotWait()
     {
