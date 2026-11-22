@@ -1,22 +1,29 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
-/// <summary>
-/// Health for any enemy. Add it next to EnemyAI / RangedEnemy / ChargerEnemy.
-/// Anything that implements IDamageable (like the player's attack) can hurt it.
-/// </summary>
+
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int maxHealth = 3;
+    public int maxHealth = 3;
+    
+    public int enemiesKilled = 0;
+    public Text showKillCount;
+    public Text showHealth;
+    
+    private SpriteRenderer sprite;     // auto-found if left empty
+    private float flashTime = 0.1f;
 
-    [Header("Hit Feedback")]
-    [SerializeField] private SpriteRenderer sprite;     // auto-found if left empty
-    [SerializeField] private float flashTime = 0.1f;
-
-    private int health;
+    public int health;
     private bool isDead;
     private Color originalColor;
 
+
+    public void Start()
+    {
+        showHealth.text = health.ToString();
+        showKillCount.text = enemiesKilled.ToString();
+    }
     private void Awake()
     {
         health = maxHealth;
@@ -54,5 +61,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         isDead = true;
         Destroy(gameObject);
+        enemiesKilled++;
     }
 }
