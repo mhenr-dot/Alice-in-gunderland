@@ -53,7 +53,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         isDead = true;
-        // TODO: death animation, sound, drops
         Destroy(gameObject);
     }
 }

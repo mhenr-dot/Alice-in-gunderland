@@ -1,14 +1,16 @@
 using UnityEngine;
+using Unity.UI;
+using UnityEngine.UI;
 
-/// <summary>
-/// Minimal player health so the enemy has something to hit.
-/// Put on the Player object (tag it "Player").
-/// </summary>
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int maxHealth = 5;
-    private int health;
-
+    private int maxHealth = 5;
+    public int health;
+    public Text showHealth;
+    void Start()
+    {
+        showHealth.text = health.ToString();
+    }
     private void Awake() => health = maxHealth;
 
     public void TakeDamage(int amount)
@@ -18,7 +20,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            // TODO: death animation / game over screen
             Destroy(gameObject);
         }
     }
